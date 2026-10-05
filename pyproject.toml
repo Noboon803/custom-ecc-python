@@ -38,6 +38,8 @@ select = [
     "SIM",  # flake8-simplify
     "PT",   # flake8-pytest-style
     "T20",  # flake8-print (print ではなく logging を使う: ECC python/hooks.md)
+    "PLC0415",  # import-outside-top-level (import はモジュールの先頭に書く)
+    "TID251",  # banned-api (下の banned-api で禁止したものを検出する)
 ]
 ignore = [
     "E501",  # 行の長さは ruff format に任せる
@@ -47,6 +49,9 @@ unfixable = ["F401"]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = ["T20"]  # テストでは print を許可する
+
+[tool.ruff.lint.flake8-tidy-imports.banned-api]
+"__future__.annotations".msg = "Python 3.14 では注釈が既定で遅延評価されるため不要。前方参照も引用符なしで書く"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
