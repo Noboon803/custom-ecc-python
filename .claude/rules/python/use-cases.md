@@ -39,7 +39,7 @@ src/custom_ecc_python/
 - `@dataclass(frozen=True, slots=True)` で、変更できないデータにする。複数の値は `list` ではなく `tuple` で持つ
 - フィールドはプリミティブ型（`str`, `int`, `bool`, `tuple` など）か、プリミティブ型だけでできた入力用の dataclass にする。ドメインの値オブジェクトやエンティティを持たせない
 - Unit of Work・DB 接続・セッションなど、インフラのオブジェクトを持たせない。Command は「何をしてほしいか」だけを表す
-- Command / Query 自体には検証の処理を書かない
+- Command / Query 自体には検証の処理を書かない。`__post_init__` での検証も書かない（ECC の python-patterns スキルに dataclass の `__post_init__` で検証する例があるが、Command / Query には適用しない）
   - 形式のチェック（必須項目、文字数、形式など）は外側の層（FastAPI なら Pydantic のモデル）で行う
   - 業務ルールのチェックは、ユースケースの中で値オブジェクトやエンティティを作るときに行う
 
@@ -97,6 +97,8 @@ class PlaceOrderUseCase:
 - ユースケースは UoW をコンストラクターで受け取る。Command に持たせない。`execute` の引数にも追加しない（`execute(command)` の形を崩さないため）
 - ユースケースは、リポジトリの `save` で変更を登録するところまでを行い、`commit` しない
 - UoW の開始と `commit` は外側の層（API ハンドラー、メッセージハンドラー、CLI など）が行う。UoW はリクエストやメッセージごとに作り、その UoW でユースケースを組み立てる
+- ECC の fastapi-patterns スキルなどに、サービスの中で `commit` する例があるが、ユースケースではこのルールを優先し、`commit` しない
+- 非同期で書く場合も構造は同じにする（`async with uow_factory() as uow:`、`await use_case.execute(command)`、`await uow.commit()`）
 - contextvar などで「現在のトランザクション」を暗黙に共有しない。依存は必ずシグネチャに出す
 
 ```python
