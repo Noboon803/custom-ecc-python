@@ -39,3 +39,7 @@ send_notification(address)
 ### 補足
 
 上の方針に従っても名前が 4〜5 語になる場合は、関数やクラスが役割を抱えすぎていないか見直す。例: `calculate_monthly_discounted_total_for_premium_users` は `PremiumPricing.monthly_total()` のように役割を分けられないか検討する。
+
+## コードレビュー
+
+Python のコードを書いた・変更したら、ECC の `ecc:code-reviewer` / `ecc:python-reviewer` と並行して、`python-rules-reviewer` エージェントでレビューする。`python-rules-reviewer` は `.claude/rules/python/` のプロジェクト独自ルールに沿っているかを確認する。HIGH の指摘は、作業を完了とする前に直す。
