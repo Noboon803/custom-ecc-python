@@ -40,6 +40,9 @@ select = [
     "T20",  # flake8-print (print ではなく logging を使う: ECC python/hooks.md)
     "PLC0415",  # import-outside-top-level (import はモジュールの先頭に書く)
     "TID251",  # banned-api (下の banned-api で禁止したものを検出する)
+    "C901",  # 循環的複雑度が高い関数 (.claude/rules/python/functions.md)
+    "PLR0912",  # 分岐が多すぎる関数
+    "PLR0915",  # 文が多すぎる関数
 ]
 ignore = [
     "E501",  # 行の長さは ruff format に任せる
@@ -52,6 +55,14 @@ unfixable = ["F401"]
 
 [tool.ruff.lint.flake8-tidy-imports.banned-api]
 "__future__.annotations".msg = "Python 3.14 では注釈が既定で遅延評価されるため不要。前方参照も引用符なしで書く"
+
+# しきい値は ruff の既定値。厳しくする場合はここを下げる
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.pylint]
+max-branches = 12
+max-statements = 50
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
