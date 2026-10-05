@@ -1,7 +1,7 @@
 #!/bin/bash
 # PostToolUse hook: 編集された .py / .pyi に ruff check --fix と ruff format をかける。
 # 編集途中で追加したばかりの import を消さないよう、F401 (未使用 import) はここでは無視し、
-# 応答の最後に Stop hook (ruff-stop.sh) でまとめて片付ける。
+# 応答の最後に Stop hook (python-stop.sh) でまとめて片付ける。
 # 自動修正できない lint エラーが残った場合は exit 2 で Claude にフィードバックする。
 
 input=$(cat)

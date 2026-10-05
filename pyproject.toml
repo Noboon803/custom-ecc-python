@@ -1,13 +1,23 @@
 [project]
-name = "ecc-python-sample"
+name = "custom-ecc-python"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = []
 
+[project.scripts]
+custom-ecc-python = "custom_ecc_python:main"
+
+[build-system]
+requires = ["uv_build>=0.10.9,<0.11.0"]
+build-backend = "uv_build"
+
 [dependency-groups]
 dev = [
+    "pyright>=1.1.414",
+    "pytest>=9.1.1",
+    "pytest-cov>=7.1.0",
     "ruff>=0.16.10",
 ]
 
@@ -26,9 +36,38 @@ select = [
     "B",    # flake8-bugbear
     "UP",   # pyupgrade
     "SIM",  # flake8-simplify
+    "PT",   # flake8-pytest-style
+    "T20",  # flake8-print (print ではなく logging を使う: ECC python/hooks.md)
 ]
 ignore = [
     "E501",  # 行の長さは ruff format に任せる
 ]
 # Edit を重ねている途中で、追加したばかりの import が消されないようにする
 unfixable = ["F401"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["T20"]  # テストでは print を許可する
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--strict-markers", "--strict-config"]
+# ECC のテストルール (python/testing.md) で使うマーカー
+markers = [
+    "unit: 単体テスト",
+    "integration: 結合テスト",
+]
+
+[tool.coverage.run]
+source = ["custom_ecc_python"]
+branch = true
+
+[tool.coverage.report]
+# ECC のテストルール (common/testing.md) に合わせてカバレッジ 80% 以上を求める
+fail_under = 80
+show_missing = true
+
+[tool.pyright]
+include = ["src", "tests"]
+venvPath = "."
+venv = ".venv"
+typeCheckingMode = "standard"

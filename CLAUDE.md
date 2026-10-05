@@ -1,4 +1,4 @@
-# ecc-python-sample
+# custom-ecc-python
 
 ## 命名規則
 
