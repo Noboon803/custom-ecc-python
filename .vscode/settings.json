@@ -52,6 +52,16 @@
             "punctuation.separator.period.python"
           ],
           "settings": { "foreground": "#808080" }
+        },
+        {
+          // 数値の接頭辞（0x / 0o / 0b）を、数値と同じ色にする
+          "scope": "storage.type.number.python",
+          "settings": { "foreground": "#B5CEA8" }
+        },
+        {
+          // 属性名（group.exceptions の exceptions）を、変数と別の色にする
+          "scope": "meta.attribute.python",
+          "settings": { "foreground": "#D4D4D4" }
         }
       ]
     }
@@ -62,7 +72,10 @@
       "rules": {
         "selfParameter": "#6A8CAF",
         "clsParameter": "#6A8CAF",
-        "function.builtin": "#56B6C2"
+        "function.builtin": "#56B6C2",
+        "property:python": "#D4D4D4",
+        // メソッド（定義と呼び出し）を、関数（黄色）と別の色にする
+        "method:python": "#8FD3D8"
       }
     }
   }
