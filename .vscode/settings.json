@@ -1,0 +1,67 @@
+{
+  "editor.tokenColorCustomizations": {
+    "[Dark Modern]": {
+      "textMateRules": [
+        {
+          // 呼び出し側のキーワード引数の名前（connect(host=host) の左側の host）
+          "scope": "variable.parameter.function-call.python",
+          "settings": { "foreground": "#D7BA7D", "fontStyle": "italic" }
+        },
+        {
+          // docstring を、C# の XML ドキュメントコメントと同じコメントの色にする
+          "scope": "string.quoted.docstring",
+          "settings": { "foreground": "#6A9955" }
+        },
+        {
+          // self / cls を暗くして、後ろの属性名やメソッド名に目が行くようにする
+          "scope": [
+            "variable.language.special.self.python",
+            "variable.language.special.cls.python"
+          ],
+          "settings": { "foreground": "#6A8CAF" }
+        },
+        {
+          // 組み込み関数（len, isinstance など）を、自作の関数と別の色にする
+          "scope": "support.function.builtin.python",
+          "settings": { "foreground": "#56B6C2" }
+        },
+        {
+          // f-string の埋め込みの境界（{ }）を目立たせる
+          "scope": "constant.character.format.placeholder.other.python",
+          "settings": { "foreground": "#ABB2BF" }
+        },
+        {
+          // f-string の書式指定（!r, :>6.1f など）を目立たせる
+          "scope": "storage.type.format.python",
+          "settings": { "foreground": "#E06C75" }
+        },
+        {
+          // 区切り記号（, : . -> など）を暗くして、名前や値に目が行くようにする
+          // 括弧は「括弧の色分け」機能が色を決めるため、ここでは対象にしない
+          "scope": [
+            "punctuation.separator.element.python",
+            "punctuation.separator.arguments.python",
+            "punctuation.separator.parameters.python",
+            "punctuation.separator.colon.python",
+            "punctuation.separator.dict.python",
+            "punctuation.separator.slice.python",
+            "punctuation.separator.annotation.python",
+            "punctuation.separator.annotation.result.python",
+            "punctuation.separator.period.python"
+          ],
+          "settings": { "foreground": "#808080" }
+        }
+      ]
+    }
+  },
+  // Pylance の意味解析による色分けが TextMate の色より優先される場合に備えて、同じ色を指定する
+  "editor.semanticTokenColorCustomizations": {
+    "[Dark Modern]": {
+      "rules": {
+        "selfParameter": "#6A8CAF",
+        "clsParameter": "#6A8CAF",
+        "function.builtin": "#56B6C2"
+      }
+    }
+  }
+}
