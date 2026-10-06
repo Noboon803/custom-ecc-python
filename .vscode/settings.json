@@ -1,4 +1,6 @@
 {
+  // WezTerm と同じ英数字のフォント。日本語は等幅の Source Han Code JP にフォールバックする
+  "editor.fontFamily": "'FiraCode Nerd Font', 'Source Han Code JP', Menlo, monospace",
   "editor.tokenColorCustomizations": {
     "[Dark Modern]": {
       "textMateRules": [
